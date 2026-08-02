@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beijos </title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6ea; 
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #5a5a5a;
+            overflow: hidden; 
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 25px; 
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.5);
+            text-align: center;
+            max-width: 420px; 
+            width: 95%;
+            transition: transform 0.5s ease-in-out;
+            max-height: 90vh; 
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none !important; 
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #ff9eaa;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #ff8496;
+        }
+
+        img.mascote {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: contain;
+            margin: 15px auto;
+            background-color: #fff0f3;
+            border: 4px solid #ffccd5;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        input {
+            width: 75%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ffccd5;
+            border-radius: 20px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            font-family: 'Nunito', sans-serif;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff9eaa;
+        }
+
+        /* ESTILOS DOS BOTÕES */
+        .btn-padrao {
+            background-color: #ff9eaa;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-padrao:hover {
+            background-color: #ff8496;
+            transform: scale(1.05);
+        }
+
+        .mensagem-erro {
+            color: #ff6b81;
+            font-size: 14px;
+            margin-top: 10px;
+            height: 20px;
+        }
+
+        /* ESTILOS DA TELA DE PERGUNTA (SIM/NÃO) */
+        .botoes-pergunta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            min-height: 80px; 
+        }
+
+        #btn-sim {
+            background-color: #ff9eaa;
+            transition: all 0.3s ease; 
+        }
+
+        #btn-nao {
+            background-color: #dcdcdc; 
+            color: #5a5a5a;
+            transition: all 0.3s ease; 
+        }
+
+        #btn-nao:hover {
+            background-color: #c0c0c0;
+        }
+
+        /* TELA EBA */
+        .eba-texto {
+            font-size: 40px;
+            color: #ff8496;
+            font-family: 'Pacifico', cursive;
+            animation: pulsa 1s infinite;
+        }
+
+        @keyframes pulsa {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* ESTILOS PARA A MÚSICA E BANNER */
+        .carta-titulo {
+            font-size: 22px;
+            color: #ff9eaa;
+            margin-bottom: 20px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid #ffccd5;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+            background-color: #fff0f3;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 12px; 
+        }
+
+        .banner-personagens {
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            object-fit: cover;
+            border-radius: 15px;
+            border: 3px solid #ffccd5;
+            box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+        }
+
+        /* ESTILOS DO TEXTO DA CARTA */
+        .carta-texto {
+            background-color: #fff0f3;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px dashed #ffccd5;
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: left;
+            color: #5a5a5a;
+            margin-bottom: 20px;
+            box-shadow: inset 0 2px 5px rgba(255, 182, 193, 0.3);
+        }
+
+        .carta-texto p {
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- TELA 1: SENHA -->
+    <div id="tela-senha" class="container">
+        <h1>Oie! Pra quem é essa surpresa? </h1>
+        <p>Eu tenho uma coisa pra você... Digita a data?</p>
+        <img id="imagem-mascote" class="mascote" src="image_1.png" alt="Mascote Feliz">
+        <br>
+        <input type="password" id="senha-input" placeholder="Data (DDMM)" maxlength="4">
+        <br>
+        <button class="btn-padrao" onclick="verificarSenha()">Abrir</button>
+        <div id="erro" class="mensagem-erro"></div>
+    </div>
+
+    <!-- TELA 2: PERGUNTA -->
+    <div id="tela-pergunta" class="container hidden">
+        <h1>Você deseja ler a carta? </h1>
+        <img src="imagem_envelope.png" class="mascote" alt="Envelope Fofo">
+        
+        <div class="botoes-pergunta">
+            <button id="btn-sim" class="btn-padrao" onclick="abrirCarta()">Sim!</button>
+            <button id="btn-nao" class="btn-padrao" onclick="clicouNao()">Não</button>
+        </div>
+    </div>
+
+    <!-- TELA 3: EBA -->
+    <div id="tela-eba" class="container hidden">
+        <h1 class="eba-texto">eba!</h1>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- TELA 4: MÚSICA E BANNER -->
+    <div id="tela-musica" class="container hidden">
+        
+        <h1 class="carta-titulo">Uma música que me lembra nós dois </h1>
+        
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/Q49pnA4jsp8" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <img src="image_banner.gif" alt="Banner dos Personagens" class="banner-personagens">
+        
+        <br><br>
+        <button class="btn-padrao" onclick="irParaCarta()">Continuar </button>
+        
+    </div>
+
+    <!-- TELA 5: A CARTA FINAL -->
+    <div id="tela-carta-final" class="container hidden">
+        <div class="carta-texto">
+            <p>Paulo,</p>
+            <p>Às vezes eu queria conseguir colocar tudo o que sinto por você em palavras. Queria encontrar uma frase perfeita, uma daquelas que conseguisse explicar exatamente o tamanho do carinho que existe dentro de mim. Mas, sinceramente, acho que nenhuma palavra seria grande o suficiente.</p>
+            <p>Eu te amo muito. Mais do que consigo explicar, mais do que às vezes consigo demonstrar.</p>
+            <p>E talvez o meu amor por você seja um pouco como o céu: eu consigo olhar para ele, admirar sua imensidão, mas não consigo colocar tudo aquilo nas minhas mãos. Eu sinto, vejo e sei que existe, mesmo sem conseguir medir.</p>
+            <p>Eu amo os nossos momentos. Até aqueles pequenos, que talvez pareçam insignificantes para qualquer outra pessoa. Uma conversa boba, uma risada inesperada, um olhar, uma brincadeira, um momento em que simplesmente estamos juntos. São essas pequenas coisas que acabam virando algumas das minhas maiores lembranças.</p>
+            <p>Você é como aquelas músicas que a gente escuta uma vez e, quando percebe, já fazem parte de uma parte especial da nossa vida. E, de alguma forma, os momentos com você também ficaram assim em mim.</p>
+            <p>Se minha memória fosse um álbum, eu guardaria nossos momentos como fotografias que nunca quero apagar. Algumas seriam engraçadas, outras bobas, outras talvez nem tivessem uma explicação para quem olhasse de fora… mas todas teriam alguma coisa em comum: você.</p>
+            <p>Eu gosto de pensar que cada momento que passamos juntos é como uma estrelinha sendo colocada no céu. Separadas, talvez pareçam pequenas. Mas quando olho para todas juntas, percebo que formam uma constelação inteira.</p>
+            <p>E essa constelação é uma das coisas mais bonitas que tenho.</p>
+            <p>Às vezes eu não sei demonstrar o quanto você é importante para mim. Talvez eu não diga tudo o que sinto, talvez eu fique sem saber como transformar sentimentos em frases. Mas quero que você saiba que o meu silêncio nunca significa falta de amor.</p>
+            <p>Porque mesmo quando eu não digo, eu sinto.</p>
+            <p>Sinto carinho nos pequenos detalhes. Sinto saudade nas pequenas ausências. Sinto felicidade quando lembro de alguma coisa que vivemos. E sinto uma vontade enorme de guardar cada momento bonito como quem guarda uma carta dentro de uma caixinha, com medo de deixar o tempo levar.</p>
+            <p>Você é uma parte muito especial da minha história.</p>
+            <p>E se a minha vida fosse um livro, eu não gostaria que nossos momentos fossem apenas algumas páginas esquecidas. Eu gostaria que eles fossem aquelas páginas que a gente relê anos depois e ainda consegue sorrir.</p>
+            <p>Obrigada por cada risada, cada conversa, cada momento, cada lembrança e cada pedacinho de felicidade que você colocou na minha vida.</p>
+            <p>Eu não sei exatamente como explicar o que sinto.</p>
+            <p>Mas talvez eu não precise.</p>
+            <p>Porque algumas coisas não foram feitas para serem explicadas. Foram feitas para serem sentidas.</p>
+            <p>E eu sinto você no meu coração de um jeito que palavras nenhuma conseguem alcançar.</p>
+            <p>Eu te amo, Paulo. Muito. 💗</p>
+            <p>E, se eu pudesse transformar todo esse amor em alguma coisa, talvez eu transformasse em estrelas e colocasse todas no céu só para você olhar para cima e lembrar:</p>
+            <p>em algum lugar, existe alguém que te ama mais do que consegue colocar em palavras.</p>
+        </div>
+
+        <!-- GIF Final em formato de banner -->
+        <img src="image_final.gif" alt="Gif Final" class="banner-personagens">
+    </div>
+
+    <script>
+        const imagemFeliz = "image_1.png";
+        const imagemTriste = "image_0.png";
+
+        function verificarSenha() {
+            const senhaDigitada = document.getElementById('senha-input').value;
+            const mascote = document.getElementById('imagem-mascote');
+            const erro = document.getElementById('erro');
+            const telaSenha = document.getElementById('tela-senha');
+            const telaPergunta = document.getElementById('tela-pergunta');
+
+            if (senhaDigitada === '0702') {
+                mascote.src = imagemFeliz; 
+                erro.innerText = '';
+                mascote.style.transform = 'scale(1.1)'; 
+                
+                setTimeout(() => {
+                    telaSenha.classList.add('hidden');
+                    telaPergunta.classList.remove('hidden'); 
+                }, 1200);
+
+            } else {
+                mascote.src = imagemTriste;
+                erro.innerText = 'Ops, a data é diferente... tenta de novo?';
+                mascote.style.transform = 'scale(1)'; 
+                mascote.style.borderColor = '#ff6b81'; 
+                setTimeout(() => { mascote.style.borderColor = '#ffccd5'; }, 1000);
+            }
+        }
+
+        let contadorCliques = 0;
+        const textosNao = [
+            "Não", 
+            "Você tem certeza?", 
+            "Certeza absoluta?", 
+            "Pensa bem...", 
+            "Ah, por favorzinho 🥺", 
+            "Vai me deixar triste...", 
+            "Última chance!", 
+            "Aperta o sim!!"
+        ];
+
+        function clicouNao() {
+            contadorCliques++;
+            
+            const btnNao = document.getElementById('btn-nao');
+            const btnSim = document.getElementById('btn-sim');
+
+            if (contadorCliques < textosNao.length) {
+                btnNao.innerText = textosNao[contadorCliques];
+            } else {
+                btnNao.innerText = textosNao[textosNao.length - 1];
+            }
+
+            let escalaNao = 1 - (contadorCliques * 0.15); 
+            if (escalaNao < 0) escalaNao = 0; 
+            btnNao.style.transform = `scale(${escalaNao})`;
+            
+            let escalaSim = 1 + (contadorCliques * 0.2); 
+            btnSim.style.transform = `scale(${escalaSim})`;
+            
+            if (escalaNao <= 0.1) {
+                btnNao.style.display = 'none';
+            }
+        }
+
+        function abrirCarta() {
+            const telaPergunta = document.getElementById('tela-pergunta');
+            const telaEba = document.getElementById('tela-eba');
+            const telaMusica = document.getElementById('tela-musica');
+
+            telaPergunta.classList.add('hidden');
+            telaEba.classList.remove('hidden');
+            document.body.style.overflow = 'auto'; 
+
+            setTimeout(() => {
+                telaEba.classList.add('hidden');
+                telaMusica.classList.remove('hidden');
+            }, 2000);
+        }
+
+        // Nova função para ir da tela da música para a tela da carta final
+        function irParaCarta() {
+            const telaMusica = document.getElementById('tela-musica');
+            const telaCartaFinal = document.getElementById('tela-carta-final');
+            
+            telaMusica.classList.add('hidden');
+            telaCartaFinal.classList.remove('hidden');
+            
+            // Rola a página para o topo suavemente caso o usuário tenha descido
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
